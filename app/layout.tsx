@@ -17,10 +17,20 @@ const fredoka = Fredoka({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  applicationName: "Mind Arcade",
   title: {
     default: "Mind Arcade — brain games with levels",
     template: "%s · Mind Arcade",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Mind Arcade",
+    statusBarStyle: "black-translucent",
   },
   description:
     "Eight brain-training puzzle games — Arrow Escape, Brick Breaker, Light Flip, Slide Puzzle, Memory Match, Pattern Recall, Color Sort and Pipe Connect — each with levels that introduce new concepts.",
