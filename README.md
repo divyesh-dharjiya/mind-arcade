@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mind Arcade
 
-## Getting Started
+Eight brain-training games in one Next.js app, **155 levels** in total. Every few levels, each game adds a new rule ("concept") to learn.
 
-First, run the development server:
+| Game | Levels | Concepts unlocked as you climb |
+| --- | --- | --- |
+| Arrow Escape | 30 | Clear arrows → Stones (7) → Long arrows (13) → Timer (21) |
+| Brick Breaker | 15 | Basics → Tough bricks (3) → Power-ups (5) → Steel (7) → Bombs (10) → Drifting wall (13) |
+| Light Flip | 20 | Plus flip → Diagonal flip (8) → Three colours (14) |
+| Slide Puzzle | 15 | 3×3 → 4×4 (6) → Colour mode (9) → Spiral target (13) |
+| Memory Match | 15 | Pairs → Shifting cards (6) → Triples (11) |
+| Pattern Recall | 20 | Remember tiles → Sequence (8) → Reverse (15) |
+| Color Sort | 20 | Pour & sort → Mystery layers (8) → Tall tubes (14) |
+| Pipe Connect | 20 | Rotate pipes → Wrap-around (8) → Stiff tiles (15) |
+
+- Levels are generated from a fixed seed, so a level is the same puzzle every time you play it, and every generated level can be solved.
+- Stars (1–3) depend on moves, mistakes or lives left. Clearing a level unlocks the next one. Progress is saved in `localStorage`.
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — routes: `/` (hub), `/game/[id]` (level select), `/game/[id]/[level]` (play)
+- `components/` — `HomeHub`, `LevelSelect`, `PlayScreen` (intro card, win/lose dialogs), HUD bits, icons
+- `games/` — one component per game; each takes `{ level, onWin(stars), onLose(reason) }`
+- `lib/games.ts` — game list, level counts and concept roadmap
+- `lib/progress.ts` — saved stars / unlocks
+- `lib/rng.ts` — seeded random generator for repeatable levels
