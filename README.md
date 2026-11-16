@@ -1,5 +1,7 @@
 # Mind Arcade
 
+**▶ Play now: [mind-arcade-nine.vercel.app](https://mind-arcade-nine.vercel.app)**
+
 Twelve brain games in one Next.js app, with **264 levels**. Each game is split into worlds, and every new world adds a rule to learn. The app is built to look and feel like a mobile game: level maps, animated intros and results, sound effects, particles and confetti.
 
 | Game | Levels | Worlds (new rule from level) |
